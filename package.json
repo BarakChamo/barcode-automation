@@ -1,0 +1,17 @@
+{
+  "name": "Warhol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/BarakChamo/barcode-automation.git",
+  "author": "Barak Chamo <barakchamo@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "onoff": "^6.0.3",
+    "pdf-to-printer": "^5.0.1",
+    "pdfkit": "^0.13.0"
+  }
+}
