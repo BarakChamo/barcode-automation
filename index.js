@@ -2,8 +2,8 @@ import * as readline from 'readline'
 import fs from 'fs'
 import { stdin as input, stdout as output } from 'process'
 import PDFDocument from 'pdfkit'
-import Printer from 'pdf-to-printer'
 import OnOff from 'onoff'
+import { exec } from 'child_process'
 
 const { Gpio } = OnOff
 
@@ -14,13 +14,13 @@ try {
 } catch (error) {}
 
 const TIMEOUT = 3000
-const PRINTER = 'POS'
+const PRINTER = 'ZJ-58'
 const PPI = 72
 const INCH_TO_MM = 25.4
 const WIDTH = PPI * (58 / INCH_TO_MM)
 const HEIGHT = PPI * (70 / INCH_TO_MM)
 const MARGIN = PPI * (5 / INCH_TO_MM)
-let printerDeviceId = ''
+
 let busy = false
 
 function createDocument(edition) {
@@ -76,7 +76,9 @@ async function onLine(line) {
   await asyncDelay(500)
 
   // print
-  Printer.print('doc.pdf', { printer: printerDeviceId, monochrome: true })
+  exec('echo ------WOOOO------ | lp')
+
+  // Printer.print('doc.pdf', { printer: printerDeviceId, monochrome: true })
 
   // wait
   await asyncDelay(TIMEOUT)
@@ -88,13 +90,14 @@ async function onLine(line) {
   busy = false
 }
 
-listPrinters().then(async printer => {
-  if (!printer) return console.log('Printer not found!')
-  printerDeviceId = printer
-  console.log(printerDeviceId)
-  const rl = readline.createInterface({ input, output })
-  rl.on('line', onLine)
-})
+// listPrinters().then(async printer => {
+//   if (!printer) return console.log('Printer not found!')
+//   printerDeviceId = printer
+//   console.log(printerDeviceId)
+// })
+
+const rl = readline.createInterface({ input, output })
+rl.on('line', onLine)
 
 process.on('SIGINT', _ => {
   GPIO && GPIO.unexport()
