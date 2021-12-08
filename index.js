@@ -76,7 +76,7 @@ async function onLine(line) {
   await asyncDelay(500)
 
   // print
-  exec('echo ------WOOOO------ | lp')
+  exec('lp -o fit-to-page doc.pdf')
 
   // Printer.print('doc.pdf', { printer: printerDeviceId, monochrome: true })
 
