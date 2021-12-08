@@ -7,10 +7,10 @@ import { exec } from 'child_process'
 
 const { Gpio } = OnOff
 
-const PIN = 17
+const PIN = 22
 let GPIO
 try {
-  GPIO = new Gpio(17, 'out')
+  GPIO = new Gpio(PIN, 'out')
 } catch (error) {}
 
 const TIMEOUT = 3000
